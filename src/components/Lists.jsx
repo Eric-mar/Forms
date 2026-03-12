@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo, useCallback } from 'react'
 
 // ### Exercise 2: Large List with Filtering
 
@@ -12,32 +12,60 @@ import React, { useEffect, useState } from 'react'
 //         - **useCallback** → for event handlers.
 function Lists() {
     const [err,setErr] =  useState(false)
+    const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
+    const [input,setInput] = useState("")
+
+
     useEffect(()=>{
         fetch(`https://api.escuelajs.co/api/v1/products`)
         .then((products)=>{
             if (!products.ok){
-                throw new Error(err)
+                throw new Error('fetch failed')
             }
-            const data = products.json()
-            console.log(data)
-            return data
+          return products.json()
            
-     } ).catch(error=>{
-        setErr('try again',error)
+     } ).then((data)=>{
+        setData(data)
+     }
+
+     ).catch(error=>{
+        setErr(error.message)
 
      })
-     .finally(setLoading(false))
+     .finally(()=>setLoading(false))
 
 
     },[])
 
+    const handleInput = useCallback(e=>{
+        setInput(e.target.value)
+    },[])
+
+    const listItem =  data.map(el=>{                                                                                                                                                                                                                   
+        return (
+        <div key={el.id}>
+           <p>{el.title}</p>
+           <p> {el.id}</p>
+    </div> 
+        
+    )}
+        )
+    }
+    console.log(input)
+
   return (
     <>
-    <input type="text" className='border-2 bg-orange-400 p-3 m-5 ' />
-    {}
+    <input type="text" className='border-2 p-3 m-5 ' 
+    onChange={handleInput}
+    value={input}
+
+    />
+   <div>
+    {listItem}
+   </div>
     </>
   )
-}
+
 
 export default Lists
