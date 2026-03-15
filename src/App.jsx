@@ -1,12 +1,12 @@
 import React, { useState,useEffect } from 'react'
-import Lists from './components/Lists'
-
+import DisplayPosts from './components/DisplayPosts'
 
 function App() {
 
 return(
   <div>
- < Lists />
+    < DisplayPosts/>
+
   </div>
 )
 

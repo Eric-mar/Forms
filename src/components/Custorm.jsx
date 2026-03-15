@@ -13,25 +13,10 @@ import Users from './Users'
 //     - Show an **error message** if the request fails.
 
 function Custorm() {
-    const {} = useUser
- 
-
-    const filteredItems = data.map((el)=>{
-        return (
-            <div key={el.id} className='m-4 p-3 '>
-                <p>{el.name}</p>
-                <p>{el.email}</p>
-                <p>{el.address.city}</p>
-            </div>
-        )
-    })
-  
-  if (loading) return <h2>Loading data...</h2>
-  if (error) return <h2>Error while fetching: {error}</h2>
+   
   return (
     <div>
         
-            <div>{filteredItems}</div>
     </div>
   )
 }
