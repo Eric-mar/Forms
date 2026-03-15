@@ -11,61 +11,27 @@ import React, { useEffect, useState, useMemo, useCallback } from 'react'
 //         - **useMemo** → for filtering logic.
 //         - **useCallback** → for event handlers.
 function Lists() {
-    const [err,setErr] =  useState(false)
-    const [data, setData] = useState([])
-    const [loading, setLoading] = useState(true)
-    const [input,setInput] = useState("")
 
+    const [search, setSearch] = useState([])
 
-    useEffect(()=>{
-        fetch(`https://api.escuelajs.co/api/v1/products`)
-        .then((products)=>{
-            if (!products.ok){
-                throw new Error('fetch failed')
-            }
-          return products.json()
-           
-     } ).then((data)=>{
-        setData(data)
-     }
-
-     ).catch(error=>{
-        setErr(error.message)
-
-     })
-     .finally(()=>setLoading(false))
-
-
+    const handleChange = useCallback(e=>setSearch(e.target.vale),[])
+    const items = useMemo(()=>{
+        return Array.from({length:1000},(_,i)=> `Item ${i+1}` )
     },[])
-
-    const handleInput = useCallback(e=>{
-        setInput(e.target.value)
-    },[])
-
-    const listItem =  data.map(el=>{                                                                                                                                                                                                                   
-        return (
-        <div key={el.id}>
-           <p>{el.title}</p>
-           <p> {el.id}</p>
-    </div> 
-        
-    )}
-        )
-    }
-    console.log(input)
-
+    const filteredItems = useMemo(()=>{
+        return items.slice(0,10).filter((item)=> item.toLowerCase().includes(search.toLowerCase()))
+    })
   return (
-    <>
-    <input type="text" className='border-2 p-3 m-5 ' 
-    onChange={handleInput}
-    value={input}
-
-    />
-   <div>
-    {listItem}
-   </div>
-    </>
+    <main>
+        <input type="text" onChange={handleChange} />
+        <ul>
+            {filteredItems.map((el,index)=>(
+                <li key={index}>{el}</li>
+            ))}
+        </ul>
+    
+    </main>
   )
-
+}
 
 export default Lists

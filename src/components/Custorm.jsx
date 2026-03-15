@@ -1,4 +1,5 @@
 import React, {useState, useEffect } from 'react'
+import Users from './Users'
 // ### Exercise 4: useUsers Hook
 
 // - Create a **custom React hook** that fetches a list of users from:
@@ -12,28 +13,8 @@ import React, {useState, useEffect } from 'react'
 //     - Show an **error message** if the request fails.
 
 function Custorm() {
-    const [loading,setLoading]=useState(true)
-     const [error,setError]=useState(null)
-      const [data,setData]=useState([])
-      
-
-    useEffect(()=>{
-        fetch('https://jsonplaceholder.typicode.com/users')
-        .then((response)=> {
-            if(!response.ok){
-                throw new Error("failed to fetch!!!")
-            }
-            return response.json()
-        }
-        )
-        .then((data)=>
-          
-             setData(data) 
-            
-    )
-        .catch((error)=>setError(error.message))
-        .finally(()=> setLoading(false))
-    },[])
+    const {} = useUser
+ 
 
     const filteredItems = data.map((el)=>{
         return (

@@ -1,11 +1,12 @@
 import React, { useState,useEffect } from 'react'
-import Custorm from './components/Custorm'
+import Lists from './components/Lists'
+
 
 function App() {
 
 return(
   <div>
-  < Custorm /> 
+ < Lists/>
   </div>
 )
 
