@@ -6,7 +6,7 @@ function App() {
 
 return(
   <div>
- < Lists/>
+ < Lists />
   </div>
 )
 

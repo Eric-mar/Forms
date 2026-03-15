@@ -12,18 +12,18 @@ import React, { useEffect, useState, useMemo, useCallback } from 'react'
 //         - **useCallback** → for event handlers.
 function Lists() {
 
-    const [search, setSearch] = useState([])
+    const [search, setSearch] = useState('')
 
-    const handleChange = useCallback(e=>setSearch(e.target.vale),[])
+    const handleChange = useCallback(e=>setSearch(e.target.value),[])
     const items = useMemo(()=>{
         return Array.from({length:1000},(_,i)=> `Item ${i+1}` )
     },[])
     const filteredItems = useMemo(()=>{
-        return items.slice(0,10).filter((item)=> item.toLowerCase().includes(search.toLowerCase()))
-    })
+        return items.filter((item)=> item.toLowerCase().includes(search.toLowerCase())).slice(0,10)
+    }, [items,search])
   return (
     <main>
-        <input type="text" onChange={handleChange} />
+        <input type="text" onChange={handleChange} className='border-2 font-bold m-4 ' value={search}/>
         <ul>
             {filteredItems.map((el,index)=>(
                 <li key={index}>{el}</li>
